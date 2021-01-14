@@ -1,0 +1,72 @@
+html,body{
+	color:black;
+	height:100%;
+	font-family: 'Yusei Magic', sans-serif;
+	background-color: #E69A8DFF;
+	font-size: 1.2rem;
+
+
+}
+.navbar{
+	background-color: #5F4B8BFF;
+}
+.navbar-nav{
+	margin-right: 3rem;
+}
+
+h1{
+	border-color: black;
+	border-width: 2rem;
+}
+
+.navbar-brand{
+	height:2.5rem;
+	width:5rem;
+	background-color:#E69A8DFF;
+	margin:0;
+	border: 3px solid black;
+
+}
+.jumbotron{
+	background-color:#5F4B8BFF;
+	margin:0;
+}
+hr{
+  border-top: 3px solid black;
+  margin:0;
+}
+.display-4{
+	margin-left: 1rem;
+
+}
+form{
+	margin:0 30% 0 30%;
+	width:40%;
+}
+
+input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-size: 16px;
+  color:solid black;
+  background-color:#E69A8DFF ;
+  background-position: 10px 10px; 
+  padding: 12px 20px 12px 40px;
+}
+
+.card{
+	width:500px;
+	margin:16px auto;
+	background-color:#5F4B8BFF;
+}
+
+.card-title{
+	color:white;
+}
+.card-subtitle{
+	color:white;
+}
+
+
