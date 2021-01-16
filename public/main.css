@@ -2,13 +2,13 @@ html,body{
 	color:black;
 	height:100%;
 	font-family: 'Roboto', sans-serif;
-	background-color:#E69A8DFF ;
+	background-color:white ;
 	font-size: 1.2rem;
 
 
 }
 .navbar{
-	background-color: #5F4B8BFF;
+	background-color: black;
 }
 .navbar-nav{
 	margin-right: 3rem;
@@ -22,15 +22,15 @@ h1{
 .navbar-brand{
 	height:2.5rem;
 	width:5rem;
-	background-color:#E69A8DFF;
+	background-color:white;
 	margin:0;
 	border: 3px solid black;
 
 }
 .jumbotron{
-	background-color:#5F4B8BFF;
+	background-color:black;
 	margin:0;
-	color:#E69A8DFF;
+	color:white;
 }
 hr{
   border-top: 3px solid black;
@@ -41,8 +41,13 @@ hr{
 
 }
 form{
-	margin:0 30% 0 30%;
+	margin:2rem 30% 2rem 30%;
 	width:40%;
+	color:solid black;
+}
+
+#tagadd{
+	display: none;
 }
 
 input[type=text] {
@@ -52,7 +57,7 @@ input[type=text] {
   border-radius: 4px;
   font-size: 16px;
   color:solid black;
-  background-color:#E69A8DFF ;
+  background-color:white ;
   background-position: 10px 10px; 
   padding: 12px 20px 12px 40px;
 }
@@ -60,7 +65,9 @@ input[type=text] {
 .card{
 	width:500px;
 	margin:16px auto;
-	background-color:#5F4B8BFF;
-	color:#E69A8DFF;
+	background-color:black;
+	color:white;
 }
-
+.error{
+	color:red;
+}

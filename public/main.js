@@ -26,7 +26,13 @@ document.querySelector('#ct').addEventListener('click',function(event){
     item.style.backgroundColor=h;
     item.style.color=b;
   });
-  alert(h);
+  
 
 
+});
+
+document.querySelector('#ab').addEventListener('click',function(event){
+    alert("Thanks for adding more tags. Please wait while this page gets reloaded with your added tags.");
+    document.querySelector('#tagadd').style.display="block";
+    document.querySelector('#ab').style.display="none";
 });
