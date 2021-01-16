@@ -55,7 +55,12 @@ app.post('/nb',(req,res)=>{
 		}
 
 		var d=new Blog(data);
-		d.save();
+		d.save((err,data)=>{
+			if(err)
+				console.log(err);
+			else
+				console.log("done");
+		});
 		res.redirect('/');
 	}
 
@@ -65,7 +70,11 @@ app.post('/nb',(req,res)=>{
 		for(x of respond)
 		{
 			var k=new Tag({topic:x});
-			k.save();
+			k.save((err,data)=>{
+			if(err)
+				console.log(err);
+			else
+				console.log("done");});
 		}
 		
 		res.redirect('/nb');
