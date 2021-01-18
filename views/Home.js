@@ -1,27 +1,31 @@
+function show(str){
+  result="";
+  result+=str.slice(0,5) + "...<span id='more'>" + str.slice(5) + "</span>"
+  return result;
+}
+
 module.exports=(data)=>{
 
   var final="";
   for(var i=0;i<data.length;i+=3)
   {
       var result='<div class="row">\n<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
-      result+='<h5 class="card-title">' + `${data[i].topic}` + '</h5>\n';
-      result+= '<h7 class="card-subtitle mb-2">' + `${data[i].writer}` +'</h7>\n';
-      result+='<p class="card-text">' + `${data[i].content}`+'</p>\n';
+      result+='<h3 class="card-title">' + `${data[i].topic}` + '</h3>\n';
+      result+= '<h7 class="card-subtitle mb-2">Written By- ' + `${data[i].writer}` +'</h7>\n';
+      result+='<p class="card-text">' + show(`${data[i].content}`) +'</p>\n';
       result+='<h8>'+ `${data[i].date}` +'</h8>\n';
-      result+='<br><a href="#" class="card-link">Like: '+  `${data[i].like}` + '</a>\n';
-      result+='<a href="#" class="card-link">Comment</a>\n';
+      result+=`<a href=/blog/` + `${data[i]._id}` + `  class='btn btn-sm btn-success'>Read More</a>\n`;
       result+='</div>\n</div>\n';
 
 
       if(i+1 < data.length)
       {
         result+='<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
-        result+='<h5 class="card-title">' + `${data[i+1].topic}` + '</h5>\n';
-        result+= '<h7 class="card-subtitle mb-2">' + `${data[i+1].writer}` +'</h7>\n';
-        result+='<p class="card-text">' + `${data[i+1].content}` +'</p>\n';
+        result+='<h3 class="card-title">' + `${data[i+1].topic}` + '</h3>\n';
+        result+= '<h7 class="card-subtitle mb-2">Written By-' + `${data[i+1].writer}` +'</h7>\n';
+        result+='<p class="card-text">' + show(`${data[i+1].content}`) +'</p>\n';
         result+='<h8>'+ `${data[i+1].date}` +'</h8>\n';
-        result+='<br><a href="#" class="card-link">Like: '+  `${data[i+1].like}` + '</a>\n';
-        result+='<a href="#" class="card-link">Comment</a>\n';
+        result+=`<a href=/blog/` + `${data[i+1]._id}` + `  class='btn btn-sm btn-success'>Read More</a>\n`;
         result+='</div>\n</div>\n';
 
       }
@@ -30,12 +34,11 @@ module.exports=(data)=>{
        if(i+2 < data.length)
       {
         result+='<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
-        result+='<h5 class="card-title">' + `${data[i+2].topic}` + '</h5>\n';
-        result+= '<h7 class="card-subtitle mb-2">' + `${data[i+2].writer}` +'</h7>\n';
-        result+='<p class="card-text">' + `${data[i+2].content}` +'</p>\n';
+        result+='<h3 class="card-title">' + `${data[i+2].topic}` + '</h3>\n';
+        result+= '<h7 class="card-subtitle mb-2">Written By-' + `${data[i+2].writer}` +'</h7>\n';
+        result+='<p class="card-text">' + show(`${data[i+2].content}`) +'</p>\n';
         result+='<h8>'+ `${data[i+2].date}` +'</h8>\n';
-        result+='<br><a href="#" class="card-link">Like: '+  `${data[i+2].like}` + '</a>\n';
-        result+='<a href="#" class="card-link">Comment</a>\n';
+        result+=`<a href=/blog/` + `${data[i+2]._id}` + `  class='btn btn-sm btn-success'>Read More</a>\n`;
         result+='</div>\n</div>\n';
 
       }

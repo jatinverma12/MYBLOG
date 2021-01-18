@@ -3,7 +3,6 @@ html,body{
 	height:100%;
 	font-family: 'Roboto', sans-serif;
 	background-color:white ;
-	font-size: 1.2rem;
 
 
 }
@@ -70,4 +69,22 @@ input[type=text] {
 }
 .error{
 	color:red;
+}
+#more{
+	display: none;
+}
+.card .btn{
+	margin-left:30%;
+}
+.container{
+	background-color: #ffe5b4;
+	margin:3rem auto 0 auto;
+	height:auto;
+}
+
+.btn{
+	margin:8px 2px 8px 2px;
+}
+h5{
+	margin:0;
 }
