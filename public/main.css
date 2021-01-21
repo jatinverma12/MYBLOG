@@ -58,7 +58,7 @@ input[type=text] {
   color:solid black;
   background-color:white ;
   background-position: 10px 10px; 
-  padding: 12px 20px 12px 40px;
+  
 }
 
 .card{
@@ -77,7 +77,7 @@ input[type=text] {
 	margin-left:30%;
 }
 .container{
-	background-color: #ffe5b4;
+	
 	margin:3rem auto 0 auto;
 	height:auto;
 }

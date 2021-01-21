@@ -1,4 +1,4 @@
-module.exports=(data)=>{
+module.exports=(data,currentUser)=>{
 	result="";
 	for(x of data){
 		result=result+ "<option>" + x.topic + "</option>\n";
@@ -59,7 +59,7 @@ module.exports=(data)=>{
     </div>
     <div class="form-group">
       <label >Your Name</label>
-      <input type="text" class="form-control" name="writer" placeholder="Your Name">
+      <input type="text" class="form-control" name="writer" value='${currentUser.username}' readonly>
     </div>
     
     <div class="form-group">

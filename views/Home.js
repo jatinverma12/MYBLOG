@@ -1,6 +1,6 @@
 function show(str){
   result="";
-  result+=str.slice(0,5) + "...<span id='more'>" + str.slice(5) + "</span>"
+  result+=str.slice(0,100) + "...<span id='more'>" + str.slice(100) + "</span>"
   return result;
 }
 
@@ -78,7 +78,7 @@ module.exports=(data)=>{
         </li>
 
       <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignUp</a>
+        <a style="color:white" class="nav-link" href="/register">SignUp</a>
       </li>
 
       <li class="nav-item">

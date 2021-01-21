@@ -11,13 +11,36 @@ const Home=require('./views/Home.js');
 const BlogTemp=require('./views/blog.js');
 const EditTemp=require('./views/edit.js');
 var methodOverride=require("method-override");
+const  passport  =  require("passport");
+const LocalStrategy         =  require("passport-local");
+const passportLocalMongoose =  require("passport-local-mongoose");
+const User                  =  require("./Schema/user");
 
 
 
 
 app.use(methodOverride("_method"));
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(function(req,res,next){
+  res.locals.currentUser = req.user;
+  next();
+})
+
+app.use(require("express-session")({
+    secret:"Any normal Word",       //decode or encode session
+    resave: false,          
+    saveUninitialized:false    
+}));
+passport.serializeUser(User.serializeUser());       //session encoding
+passport.deserializeUser(User.deserializeUser());   //session decoding
+passport.use(new LocalStrategy(User.authenticate()));
+app.set("view engine","ejs");
+app.use(bodyParser.urlencoded(
+      { extended:true }
+))
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 mongoose.connect("mongodb+srv://gargisingh:gargisingh@gettingstarted.c5fxr.mongodb.net/myblog?retryWrites=true&w=majority",{
   useUnifiedTopology:true,
@@ -41,9 +64,9 @@ app.get('/',(req,res)=>{
 	
 });
 
-app.get('/nb',(req,res)=>{
+app.get('/nb',isLoggedIn,(req,res)=>{
 	Tag.find({},function(err,data){
-		res.send(NewBlog(data));
+		res.send(NewBlog(data,req.user));
 	})
 });
 
@@ -88,13 +111,13 @@ app.post('/nb',(req,res)=>{
 	}
 });
 
-app.get('/blog/:id',(req,res)=>{
+app.get('/blog/:id',isLoggedIn,(req,res)=>{
 	Blog.find({_id:req.params.id},(err,data)=>{
 		res.send(BlogTemp(data[0]));
 	})
 })
 
-app.get('/blog/:id/edit',(req,res)=>{
+app.get('/blog/:id/edit',isLoggedIn,(req,res)=>{
 	Blog.find({_id:req.params.id},(err,data)=>{
 
 
@@ -166,6 +189,52 @@ app.delete('/blog/:id/delete',(req,res)=>{
 			}
 	});
 });
+
+
+app.get("/userprofile" ,isLoggedIn,(req,res) =>{
+    res.render("userprofile");
+})
+//Auth Routes
+app.get("/login",(req,res)=>{
+    res.render("login");
+});
+
+app.post("/login",passport.authenticate("local",{
+    successRedirect:"/userprofile",
+    failureRedirect:"/login"
+}),function (req, res){
+});
+
+app.get("/register",(req,res)=>{
+    res.render("register");
+});
+
+app.post("/register",(req,res)=>{
+    
+    User.register(new User({username: req.body.username}),req.body.password,function(err,user){
+        if(err){
+            console.log(err);
+            res.render("register");
+        }
+    passport.authenticate("local")(req,res,function(){
+        res.redirect("/login");
+    })    
+    })
+});
+
+
+app.get("/logout",(req,res)=>{
+    req.logout();
+    res.redirect("/");
+});
+function isLoggedIn(req,res,next) {
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
+
+
 
 app.listen(3000,()=>{
 	console.log("server started");
