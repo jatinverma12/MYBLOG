@@ -1,51 +1,66 @@
+const header=require('./header.js');
+const User=require('../Schema/user.js');
+
+
 function show(str){
   result="";
   result+=str.slice(0,100) + "...<span id='more'>" + str.slice(100) + "</span>"
   return result;
 }
 
-module.exports=(data)=>{
+module.exports=(data,users,currentUser)=>{
 
+  var head=header(currentUser);
   var final="";
+  var author="";
+  var result="";
   for(var i=0;i<data.length;i+=3)
   {
-      var result='<div class="row">\n<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
+      
+      console.log(users[i]);
+      result='<div class="row">\n<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
       result+='<h3 class="card-title">' + `${data[i].topic}` + '</h3>\n';
-      result+= '<h7 class="card-subtitle mb-2">Written By- ' + `${data[i].writer}` +'</h7>\n';
-      result+='<p class="card-text">' + show(`${data[i].content}`) +'</p>\n';
+      result+= '<h7 class="card-subtitle mb-2">Written By- ' + `${users[i]}` +'</h7>\n';
+      result+='<h4 class="card-text">' + show(`${data[i].content}`) +'</h4>\n';
       result+='<h8>'+ `${data[i].date}` +'</h8>\n';
-      result+=`<a href=/blog/` + `${data[i]._id}` + `  class='btn btn-sm btn-success'>Read More</a>\n`;
+      result+=`<a href=/blog/` + `${data[i]._id}` + `  class='btn btn-lg btn-success'>Read More</a>\n`;
       result+='</div>\n</div>\n';
+      
+      
 
 
       if(i+1 < data.length)
       {
-        result+='<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
+        
+         result+='<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
         result+='<h3 class="card-title">' + `${data[i+1].topic}` + '</h3>\n';
-        result+= '<h7 class="card-subtitle mb-2">Written By-' + `${data[i+1].writer}` +'</h7>\n';
-        result+='<p class="card-text">' + show(`${data[i+1].content}`) +'</p>\n';
+        result+= '<h7 class="card-subtitle mb-2">Written By-' + `${users[i+1]}` +'</h7>\n';
+        result+='<h4 class="card-text">' + show(`${data[i+1].content}`) +'</h4>\n';
         result+='<h8>'+ `${data[i+1].date}` +'</h8>\n';
-        result+=`<a href=/blog/` + `${data[i+1]._id}` + `  class='btn btn-sm btn-success'>Read More</a>\n`;
+        result+=`<a href=/blog/` + `${data[i+1]._id}` + `  class='btn btn-lg btn-success'>Read More</a>\n`;
         result+='</div>\n</div>\n';
+        
+       
 
       }
 
     
        if(i+2 < data.length)
       {
-        result+='<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
+        
+          result+='<div class="card md-12 lg-6 xl-4">\n<div class="card-body">\n';
         result+='<h3 class="card-title">' + `${data[i+2].topic}` + '</h3>\n';
-        result+= '<h7 class="card-subtitle mb-2">Written By-' + `${data[i+2].writer}` +'</h7>\n';
-        result+='<p class="card-text">' + show(`${data[i+2].content}`) +'</p>\n';
+        result+= '<h7 class="card-subtitle mb-2">Written By-' + `${users[i+2]}` +'</h7>\n';
+        result+='<h4 class="card-text">' + show(`${data[i+2].content}`) +'</h4>\n';
         result+='<h8>'+ `${data[i+2].date}` +'</h8>\n';
-        result+=`<a href=/blog/` + `${data[i+2]._id}` + `  class='btn btn-sm btn-success'>Read More</a>\n`;
+        result+=`<a href=/blog/` + `${data[i+2]._id}` + `  class='btn btn-lg btn-success'>Read More</a>\n`;
         result+='</div>\n</div>\n';
+        
+      
 
       }
 
-      
-
-      final+=result + '</div>\n';
+       final+=result + '</div>\n';
 
   
   }
@@ -73,17 +88,7 @@ module.exports=(data)=>{
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
     <ul class="navbar-nav ml-auto" >
-      <li class="nav-item active">
-        <a style="color:white" class="nav-link" href="#">Home</a>
-        </li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="/register">SignUp</a>
-      </li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignIn</a>
-      </li>
+      ${head}
     </ul>
     
 

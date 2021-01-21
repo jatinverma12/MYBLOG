@@ -1,5 +1,19 @@
-module.exports=(blog)=>{
 
+const header=require('./header.js');
+module.exports=(blog,checkuser,currentUser)=>{
+  
+  var but=""
+
+  if(checkuser.username===currentUser.username)
+  {
+    but=`<a id="edit" class="btn btn-sm btn-warning" href='/blog/${blog._id}/edit'>Edit</a>
+    <form id="delete" style="display:inline; margin:0" method="POST" action="/blog/${blog._id}/delete?_method=DELETE">
+      <button class="btn btn-sm btn-danger">
+                  Delete
+      </button>
+    </form>`
+  }
+  var head=header(currentUser);
 	var tags="<h4>";
 	for(x of blog.tags)
 	{
@@ -30,17 +44,7 @@ module.exports=(blog)=>{
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
     <ul class="navbar-nav ml-auto" >
-      <li class="nav-item active">
-        <a style="color:white" class="nav-link" href="#">Home</a>
-        </li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignUp</a>
-      </li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignIn</a>
-      </li>
+     ${head}
     </ul>
     
 
@@ -56,18 +60,13 @@ module.exports=(blog)=>{
 <div class="container" style="background-color: #ffe5b4;">
 
 	<h1 class="display-1" style="margin-bottom:0">${blog.topic}<h1/>
-	<h5>By ${blog.writer}</h5>
+	<h5>By ${checkuser.username}</h5>
 	<h5>${blog.date}</h5>
 	<br>
 	<h3>${blog.content}</h3>
 	<h4 class="tags">${tags}</h4>
 	<div class="actions">
-		<a class="btn btn-sm btn-warning" href='/blog/${blog._id}/edit'>Edit</a>
-		<form style="display:inline; margin:0" method="POST" action="/blog/${blog._id}/delete?_method=DELETE">
-			<button class="btn btn-sm btn-danger">
-									Delete
-			</button>
-		</form>
+		${but}
 		<a class="btn btn-sm btn-success" href="">Comment</a>
 		<a class="btn btn-sm btn-primary" href="">Like ${blog.like}</a>
 	</div>
@@ -82,4 +81,6 @@ module.exports=(blog)=>{
 
 
 	`
+
+
 }

@@ -1,4 +1,8 @@
+const header=require('../views/header.js');
+
 module.exports=(data,currentUser)=>{
+
+  var head=header(currentUser);
 	result="";
 	for(x of data){
 		result=result+ "<option>" + x.topic + "</option>\n";
@@ -27,17 +31,7 @@ module.exports=(data,currentUser)=>{
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
   	<ul class="navbar-nav ml-auto" >
-  		<li class="nav-item active">
-        <a style="color:white" class="nav-link" href="#">Home</a>
-      	</li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignUp</a>
-      </li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignIn</a>
-      </li>
+  		${head}
   	</ul>
     
 
@@ -57,10 +51,7 @@ module.exports=(data,currentUser)=>{
       <input type="text" class="form-control"  name="topic" placeholder="Topic">
       <div class="error" id="topicErr"></div>
     </div>
-    <div class="form-group">
-      <label >Your Name</label>
-      <input type="text" class="form-control" name="writer" value='${currentUser.username}' readonly>
-    </div>
+    
     
     <div class="form-group">
       <label >Add Tag(s)</label>

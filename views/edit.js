@@ -1,5 +1,6 @@
-
-module.exports=(data,tags)=>{
+const header=require('./header.js');
+module.exports=(data,tags,currentUser)=>{
+    var head=header(currentUser);
 	result="";
 	for(x of tags){
 		result=result+ "<option>" + x.topic + "</option>\n";
@@ -28,17 +29,7 @@ module.exports=(data,tags)=>{
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     
   	<ul class="navbar-nav ml-auto" >
-  		<li class="nav-item active">
-        <a style="color:white" class="nav-link" href="#">Home</a>
-      	</li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignUp</a>
-      </li>
-
-      <li class="nav-item">
-        <a style="color:white" class="nav-link" href="#">SignIn</a>
-      </li>
+  		${head}
   	</ul>
     
 
@@ -60,7 +51,7 @@ module.exports=(data,tags)=>{
     </div>
     <div class="form-group">
       <label >Your Name</label>
-      <input type="text" class="form-control" name="writer" value='${data.writer}' placeholder="Your Name">
+      <input type="text" class="form-control" name="writer" value='${data.writer}'  readonly>
     </div>
     
     <div class="form-group">

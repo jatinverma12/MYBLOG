@@ -51,15 +51,23 @@ mongoose.connect("mongodb+srv://gargisingh:gargisingh@gettingstarted.c5fxr.mongo
   console.log(err);
 });
 
-
-
-
- 
 app.use(express.static(path.join(__dirname, "public")));
+var users=[];
+async function get_users(data){
+		for(var i=0;i<data.length;i++)
+		{
+			User.find({_id:data[i].writer},(err,user)=>{
+				console.log(user[0].username);
+				users.push(user[0].username);
+			});
+		}
+	return users;
+}
 
 app.get('/',(req,res)=>{
-	Blog.find({},function(err,data){
-		res.send(Home(data));
+	Blog.find({},async function(err,data){
+		var writers=await get_users(data);
+		res.send(Home(data,writers,req.user));
 	});
 	
 });
@@ -80,7 +88,8 @@ app.post('/nb',(req,res)=>{
 		var dateTime = date+' '+time;
 		var data={
 			...req.body,
-			date:dateTime
+			date:dateTime,
+			writer:req.user._id
 
 		}
 
@@ -113,7 +122,10 @@ app.post('/nb',(req,res)=>{
 
 app.get('/blog/:id',isLoggedIn,(req,res)=>{
 	Blog.find({_id:req.params.id},(err,data)=>{
-		res.send(BlogTemp(data[0]));
+		User.find({_id:data[0].writer},(err,checkuser)=>{
+			res.send(BlogTemp(data[0],checkuser[0],req.user));
+		})
+		
 	})
 })
 
@@ -122,7 +134,7 @@ app.get('/blog/:id/edit',isLoggedIn,(req,res)=>{
 
 
 		Tag.find({},function(err,tags){
-		res.send(EditTemp(data[0],tags));
+		res.send(EditTemp(data[0],tags,req.user));
 	})
 		
 	})
